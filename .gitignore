@@ -1,0 +1,12 @@
+node_modules
+docs/generated
+*local.etcd
+.tern-project
+.DS_Store
+*.swp
+*.swo
+*.log
+*.pid
+logs
+pids
+coverage

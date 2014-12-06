@@ -1,0 +1,39 @@
+orchestrator:
+  build: .
+  environment:
+   - PAZ_ORCHESTRATOR_SVCDIR_URL=http://svcdir_1:9001
+   - PAZ_ORCHESTRATOR_PORT=9000
+   - PAZ_ORCHESTRATOR_SCHEDULER_URL=http://scheduler_1:9002
+   - PAZ_ORCHESTRATOR_ETCD_ENDPOINT=etcd_1:4001
+   - PAZ_ORCHESTRATOR_CORS=true
+  links:
+   - svcdir
+   - etcd
+   - scheduler
+  ports:
+   - "9000:9000"
+svcdir:
+  image: lukebond/paz-service-directory
+  environment:
+   - PAZ_SERVICE_DIRECTORY_PORT=9001
+  ports:
+   - "9001:9001"
+etcd:
+  image: quay.io/coreos/etcd:v0.5.0_alpha.4
+  ports:
+   - "4001:4001"
+   - "7001:7001"
+scheduler:
+  image: lukebond/paz-scheduler
+  environment:
+   - PAZ_SCHEDULER_SVCDIR_URL=svcdir_1:9001
+   - PAZ_SCHEDULER_PORT=9002
+   - PAZ_SCHEDULER_GEN_KEY=false
+   - PAZ_SCHEDULER_NODEPLOY=true
+   - PAZ_SCHEDULER_ETCD_ENDPOINT=etcd_1:4001
+  links:
+   - svcdir
+   - etcd
+  ports:
+    - "9002:9002"
+
