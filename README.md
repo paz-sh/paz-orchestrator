@@ -1,4 +1,4 @@
-# Orchestrator 
+# Orchestrator
 
 Central command for the paz platform, providing cluster management as well as health and stats at the cluster, machine and service level. 
 
