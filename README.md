@@ -23,7 +23,7 @@ The API documentation is generated from `docs/api-blueprint.md`.
 
 Ensure you have fig installed (http://www.fig.sh/install.html). And boot2docker if you're on a mac (http://docs.docker.com/installation/mac/). Install `etcdctl` and `fleetctl` using brew (we won't use the latter now but you'll need it).
 
-Check if boot2docker is running:
+Check if `boot2docker` is running:
 ```
 $ boot2docker status
 ```
