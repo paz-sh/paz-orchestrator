@@ -57,8 +57,7 @@ module.exports = function(cfg) {
 
     if (host) {
       res.send(200, host);
-    }
-    else {
+    } else {
       res.send(404);
     }
   };

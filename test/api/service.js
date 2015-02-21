@@ -15,8 +15,10 @@ var schedulerPort = process.env.SCHEDULER_PORT || 9002;
 
 var orchestratorPort = process.env.ORCHESTRATOR_PORT || 9000;
 
+/* eslint-disable no-multi-spaces */
 var orchestratorPath = ['http://', host, ':', orchestratorPort].join('');
 var schedulerPath    = ['http://', host, ':', schedulerPort].join('');
+/* eslint-enable no-multi-spaces */
 
 var scheduler = supertest(schedulerPath);
 var orchestrator = supertest(orchestratorPath);

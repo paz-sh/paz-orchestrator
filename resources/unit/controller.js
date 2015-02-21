@@ -39,8 +39,7 @@ module.exports = function(cfg) {
 
     if (unit) {
       res.send(200, transformRawUnit(unit, name));
-    }
-    else {
+    } else {
       res.send(404);
     }
   };

@@ -29,8 +29,7 @@ module.exports = function(cfg) {
       if (err) {
         req.log.error(err);
         res.send(err.statusCode || 500, err);
-      }
-      else {
+      } else {
         res.send(sres.statusCode, obj);
       }
     });
@@ -43,8 +42,7 @@ module.exports = function(cfg) {
       if (err) {
         req.log.error(err);
         res.send(err.statusCode || 500, err.message);
-      }
-      else {
+      } else {
         if (!req.query.noEmit) {
           io.emit('service.create', req.body);
         }
@@ -60,8 +58,7 @@ module.exports = function(cfg) {
         if (err) {
           req.log.error(err);
           res.send(err.statusCode || 500, err);
-        }
-        else {
+        } else {
           res.send(sres.statusCode, obj);
         }
       });
@@ -74,8 +71,7 @@ module.exports = function(cfg) {
         if (err) {
           req.log.error(err);
           res.send(err.statusCode || 500, err.message);
-        }
-        else {
+        } else {
           if (!req.query.noEmit) {
             io.emit('service.modifyConfig', req.params.name, obj.doc);
           }
@@ -91,8 +87,7 @@ module.exports = function(cfg) {
         if (err) {
           req.log.error(err);
           res.send(err.statusCode || 500, err.message);
-        }
-        else {
+        } else {
           if (!req.query.noEmit) {
             io.emit('service.del', req.params.name);
           }

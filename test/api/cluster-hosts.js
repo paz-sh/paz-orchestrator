@@ -66,6 +66,7 @@ lab.experiment('Cluster Hosts', function() {
         done();
       });
   });
+
   lab.test('GET /cluster/hosts/:id returns correct host document', function(done) {
     orchestrator
       .get('/cluster/hosts/' + machine.ID)
@@ -76,19 +77,19 @@ lab.experiment('Cluster Hosts', function() {
           return done(err);
         }
 
-        var host = res.body;
+        var hostDoc = res.body;
 
-        expect(host).to.have.property('ID')
+        expect(hostDoc).to.have.property('ID')
           .and.equal(machine.ID);
-        expect(host).to.have.property('PublicIP')
+        expect(hostDoc).to.have.property('PublicIP')
           .and.equal(machine.PublicIP);
-        expect(host).to.have.property('Version')
+        expect(hostDoc).to.have.property('Version')
           .and.equal(machine.Version);
-        expect(host).to.have.property('TotalResources')
+        expect(hostDoc).to.have.property('TotalResources')
           .and.deep.equal(machine.TotalResources);
-        expect(host).to.have.property('units')
+        expect(hostDoc).to.have.property('units')
           .and.to.be.instanceOf(Array);
-        expect(host).to.have.property('Metadata');
+        expect(hostDoc).to.have.property('Metadata');
 
         done();
       });

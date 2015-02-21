@@ -54,7 +54,7 @@ var opts = {
       '9000'),
   'loglevel':
     argh.argv.loglevel ||
-    process.env[APP_NAME + '_LOGLEVEL']  ||
+    process.env[APP_NAME + '_LOGLEVEL'] ||
     'info',
   'svcdir-url':
     argh.argv['svcdir-url'] ||

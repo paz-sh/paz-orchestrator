@@ -39,7 +39,7 @@ lab.experiment('Fleet Watch Machines', function() {
   });
 
   lab.before(function(done) {
-    etcd.set('_coreos.com/fleet/machines/' + machine.ID  + '/object', JSON.stringify(machine), function(err) {
+    etcd.set('_coreos.com/fleet/machines/' + machine.ID + '/object', JSON.stringify(machine), function(err) {
       if (err) {
         done(err);
       }
@@ -62,7 +62,7 @@ lab.experiment('Fleet Watch Machines', function() {
   lab.test('Updating a machine results in the changes being present in the current state', function(done) {
     machine.PublicIP = '172.17.8.102';
 
-    etcd.set('_coreos.com/fleet/machines/' + machine.ID  + '/object', JSON.stringify(machine), function(err) {
+    etcd.set('_coreos.com/fleet/machines/' + machine.ID + '/object', JSON.stringify(machine), function(err) {
       if (err) {
         done(err);
       }
@@ -83,7 +83,7 @@ lab.experiment('Fleet Watch Machines', function() {
   });
 
   lab.test('Removing a machine results in the machine not being present in the current state', function(done) {
-    etcd.del('_coreos.com/fleet/machines/' + machine.ID  + '/object',
+    etcd.del('_coreos.com/fleet/machines/' + machine.ID + '/object',
         function(err) {
           if (err) {
             done(err);
