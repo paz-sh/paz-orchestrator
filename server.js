@@ -44,7 +44,6 @@ function ensureProtocolPrefix(url) {
   return url;
 }
 
-console.log(argh.argv);
 var APP_NAME = pkgjson.name.toUpperCase().replace('-', '_');
 argh.argv.dns = argh.argv.dns || {};
 var opts = {
@@ -101,6 +100,7 @@ if (opts.cors === 'true') {
 if (opts.cors === 'false') {
   opts.cors = false;
 }
+console.log(JSON.stringify(opts));
 
 // check for required args
 if (!opts['svcdir-url']) {
