@@ -23,7 +23,7 @@ function printUsage() {
     '--svcdir-url host and port of the service directory (required)',
     '--scheduler-url host and port of the scheduler (default: http://127.0.0.1:9001)',
     '--etcd-endpoint host and port of an etcd endpoint (default: 172.17.8.101:4001)',
-    '--cors set whether to enable CORS or not (default: false)',
+    '--cors set whether to enable CORS or not (default: true)',
     '--dns.disabled use this to disable DNS configuration, e.g. for localhost cluster (default: false).',
     '--dns.provider pkgcloud dns provider to use for updating machine dns records (default: dnsimple)',
     '--dns.email pkgcloud providers email address',
