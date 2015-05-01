@@ -12,19 +12,20 @@ orchestrator:
    - scheduler
   ports:
    - "9000:9000"
+   - "1337:1337"
 svcdir:
-  image: lukebond/paz-service-directory
+  image: quay.io/yldio/paz-service-directory
   environment:
    - PAZ_SERVICE_DIRECTORY_PORT=9001
   ports:
    - "9001:9001"
 etcd:
-  image: coreos/etcd
+  image: coreos/etcd:v0.5.0_alpha.5
   ports:
    - "4001:4001"
    - "7001:7001"
 scheduler:
-  image: lukebond/paz-scheduler
+  image: quay.io/yldio/paz-scheduler
   environment:
    - PAZ_SCHEDULER_SVCDIR_URL=svcdir_1:9001
    - PAZ_SCHEDULER_PORT=9002
