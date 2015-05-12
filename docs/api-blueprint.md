@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://www.google.com
+HOST: http://paz-orchestrator.paz
 
 # paz-orchestrator
 The service that ties together the various components of the paz platform, providing cluster administration and health monitoring of clusters, hosts and services.
