@@ -12,7 +12,7 @@ orchestrator:
    - scheduler
   ports:
    - "9000:9000"
-   # - "1337:1337"
+   - "1337:1337"
 svcdir:
   image: quay.io/yldio/paz-service-directory
   environment:

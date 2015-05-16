@@ -5,7 +5,6 @@
 var Lab = require('lab');
 var Etcd = require('node-etcd');
 var Watcher = require('../../lib/fleet-watch-units');
-var io = require('socket.io')(1337);
 var fixtures = require('../fixtures/etcd.json');
 
 var host = process.env.DOCKER_IP || 'localhost';
@@ -13,7 +12,7 @@ var host = process.env.DOCKER_IP || 'localhost';
 var lab = exports.lab = Lab.script();
 var expect = Lab.expect;
 var etcd = new Etcd(host, 4001);
-var watcher = new Watcher({'etcd-endpoint': host + ':4001', io: io});
+var watcher = new Watcher({'etcd-endpoint': host + ':4001'});
 var unit = fixtures.unit;
 
 lab.experiment('Fleet Watch Units', function() {
