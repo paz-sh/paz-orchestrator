@@ -1,716 +1,181 @@
 FORMAT: 1A
-HOST: http://paz-orchestrator.paz
+HOST: http://polls.apiblueprint.org/
 
-# paz-orchestrator
-The service that ties together the various components of the paz platform, providing cluster administration and health monitoring of clusters, hosts and services.
+# Polls API
 
-# Group Cluster
-An isolated collection of machines for a particular purpose, e.g. dev, integration, qa, user-testing, staging and production.
+Polls is a simple API allowing consumers to view polls and vote in them.
 
-For now, there is only one cluster.
+# Polls API Root [/]
 
-## Cluster [/cluster]
-A single cluster object with all its details.
+This resource does not have any attributes. Instead it offers the initial
+API affordances in the form of the links in the JSON body.
 
-### Retrieve a cluster [GET]
-+ Response 200 (application/json)
+It is recommend to follow the “url” link values,
+[Link](https://tools.ietf.org/html/rfc5988) or Location headers where
+applicable to retrieve resources. Instead of constructing your own URLs,
+to keep your client decoupled from implementation details.
 
-    + Body
-
-            {
-                "hostCount": 5
-            }
-
-# Group Host
-A host within a cluster.
-
-## Host Collection [/cluster/hosts]
-
-### List all hosts [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "ID: "eb3691885bdc473f92a5d69de942b81",
-                    "PublicIP": "172.17.8.102",
-                    "Metadata": {},
-                    "Version": "0.5.0",
-                    "units": ['unit1', 'unit2', 'unit3'],
-                    "TotalResources": {
-                        "Cores": 100,
-                        "Memory": 998,
-                        "Disk": 0
-                    }
-                }
-            ]
-
-## Host [/cluster/hosts/{id}]
-A single host with all its details.
-
-### Retrieve a host [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "ID": "eb3691885bdc473f92a5d69de942b814",
-                "PublicIP": "172.17.8.102",
-                "Metadata": {},
-                "Version": "0.5.0",
-                "units": ['unit1', 'unit2', 'unit3'],
-                "TotalResources": {
-                    "Cores": 100,
-                    "Memory": 998,
-                    "Disk": 0
-                }
-            }
-
-## Host health [/cluster/host/{id}/health]
-Health information for a host.
-
-TBD
-
-### Get host health [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "healthy": true
-            }
-
-# Group Unit
-A unit running on a CoreOS cluster.
-
-## Unit Collection [/cluster/units]
-
-### List all units [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "name": "api-1.0.1-1"
-                    "service": "api",
-                    "version": "1.0.1",
-                    "instance": 1,
-                    "activeState": "failed",
-                    "loadState": "loaded",
-                    "machineState": {
-                        "ID": "eb3691885bdc473f92a5d69de942b814",
-                        "Metadata": {},
-                        "PublicIP": "172.17.8.102",
-                        "TotalResources": {
-                            "Cores": 100,
-                            "Disk": 0,
-                            "Memory": 998
-                        },
-                        "Version": "0.5.0"
-                    },
-                    "subState": "failed"
-                }
-            ]
-
-## Unit [/cluster/units/{id}]
-A single unit with all its details.
-
-### Retrieve a host [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "name": "api-1.0.1-1"
-                "service": "api",
-                "version": "1.0.1",
-                "instance": 1,
-                "activeState": "failed",
-                "loadState": "loaded",
-                "machineState": {
-                    "ID": "eb3691885bdc473f92a5d69de942b814",
-                    "Metadata": {},
-                    "PublicIP": "172.17.8.102",
-                    "TotalResources": {
-                        "Cores": 100,
-                        "Disk": 0,
-                        "Memory": 998
-                    },
-                    "Version": "0.5.0"
-                },
-                "subState": "failed"
-            }$
-
-# Group Load Balancers
-A list of load balancers within the cluster deployed by paz.
-
-TBD.
-
-## Load Balancer Collection [/cluster/load-balancers]
-
-### List all load balancers [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "id": "6770361ab0b049eda35d4ac58d9043d5",
-                    "service": "api",
-                    "backends": {
-                        "current": {
-                            "version": "1.0.1",
-                            "weighting": 85,
-                            "hosts": [
-                                {
-                                    "unit": "api-1.0.1-1",
-                                    "host": "172.17.8.101",
-                                    "port": "49165",
-                                    "haproxy": {
-                                        "name": "HAProxy",
-                                        "version": "1.4.18",
-                                        "release_data": "2011/09/16",
-                                        "nbproc": "1",
-                                        "process_num": "1",
-                                        "pid": "30984",
-                                        "uptime": "0d 2h01m42s",
-                                        "uptime_sec": "7302",
-                                        "mem_max_mb": "0",
-                                        "ulimit_n": "8210",
-                                        "max_sock": "8210",
-                                        "max_conn": "4096",
-                                        "max_pipes": "0",
-                                        "current_conns": "2",
-                                        "pipes_used": "0",
-                                        "pipes_free": "0",
-                                        "tasks": "5",
-                                        "run_queue": "1",
-                                        "node": "haproxyserver-0",
-                                        "development": ""
-                                    }
-                                },
-                                {
-                                    "unit": "api-1.0.1-2",
-                                    "host": "172.17.8.102",
-                                    "port": "49166",
-                                    "haproxy": {
-                                        "name": "HAProxy",
-                                        "version": "1.4.18",
-                                        "release_data": "2011/09/16",
-                                        "nbproc": "1",
-                                        "process_num": "1",
-                                        "pid": "30984",
-                                        "uptime": "0d 2h01m42s",
-                                        "uptime_sec": "7302",
-                                        "mem_max_mb": "0",
-                                        "ulimit_n": "8210",
-                                        "max_sock": "8210",
-                                        "max_conn": "4096",
-                                        "max_pipes": "0",
-                                        "current_conns": "2",
-                                        "pipes_used": "0",
-                                        "pipes_free": "0",
-                                        "tasks": "5",
-                                        "run_queue": "1",
-                                        "node": "haproxyserver-0",
-                                        "development": ""
-                                    }
-                                },
-                                {
-                                    "unit": "api-1.0.1-3",
-                                    "host": "172.17.8.103",
-                                    "port": "49167",
-                                    "haproxy": {
-                                        "name": "HAProxy",
-                                        "version": "1.4.18",
-                                        "release_data": "2011/09/16",
-                                        "nbproc": "1",
-                                        "process_num": "1",
-                                        "pid": "30984",
-                                        "uptime": "0d 2h01m42s",
-                                        "uptime_sec": "7302",
-                                        "mem_max_mb": "0",
-                                        "ulimit_n": "8210",
-                                        "max_sock": "8210",
-                                        "max_conn": "4096",
-                                        "max_pipes": "0",
-                                        "current_conns": "2",
-                                        "pipes_used": "0",
-                                        "pipes_free": "0",
-                                        "tasks": "5",
-                                        "run_queue": "1",
-                                        "node": "haproxyserver-0",
-                                        "development": ""
-                                    }
-                                }
-                            ]
-                        },
-                        "next": {
-                            "version": "1.0.2",
-                            "weighting": 15,
-                            "hosts": [
-                                {
-                                    "unit": "api-1.0.2-1",
-                                    "host": "172.17.8.101",
-                                    "port": "49168",
-                                    "sessions": 3,
-                                    "queuedRequests": 2
-                                },
-                                {
-                                    "unit": "api-1.0.2-2",
-                                    "host": "172.17.8.102",
-                                    "port": "49169",
-                                    "sessions": 2,
-                                    "queuedRequests": 1
-                                },
-                                {
-                                    "unit": "api-1.0.2-3",
-                                    "host": "172.17.8.103",
-                                    "port": "49170",
-                                    "sessions": 1,
-                                    "queuedRequests": 0
-                                }
-                            ]
-                        }
-                    },
-                }
-            ]
-
-## Load Balancer [/cluster/load-balancers/{id}]
-A single load balancer with all its details.
-
-TBD
-
-### Retrieve a load balancer [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "id": "6770361ab0b049eda35d4ac58d9043d5",
-                "service": "api",
-                "backends": {
-                    "current": {
-                        "version": "1.0.1",
-                        "weighting": 85,
-                        "hosts": [
-                            {
-                                "unit": "api-1.0.1-1",
-                                "host": "172.17.8.101",
-                                "port": "49165",
-                                "sessions": 5,
-                                "queuedRequests": 3
-                            },
-                            {
-                                "unit": "api-1.0.1-2",
-                                "host": "172.17.8.102",
-                                "port": "49166",
-                                "sessions": 3,
-                                "queuedRequests": 2
-                            },
-                            {
-                                "unit": "api-1.0.1-3",
-                                "host": "172.17.8.103",
-                                "port": "49167",
-                                "sessions": 2,
-                                "queuedRequests": 1
-                            }
-                        ]
-                    },
-                    "next": {
-                        "version": "1.0.2",
-                        "weighting": 15,
-                        "hosts": [
-                            {
-                                "unit": "api-1.0.2-1",
-                                "host": "172.17.8.101",
-                                "port": "49168",
-                                "sessions": 3,
-                                "queuedRequests": 2
-                            },
-                            {
-                                "unit": "api-1.0.2-2",
-                                "host": "172.17.8.102",
-                                "port": "49169",
-                                "sessions": 2,
-                                "queuedRequests": 1
-                            },
-                            {
-                                "unit": "api-1.0.2-3",
-                                "host": "172.17.8.103",
-                                "port": "49170",
-                                "sessions": 1,
-                                "queuedRequests": 0
-                            }
-                        ]
-                    }
-                },
-            }
-
-# Group DNS
-DNS entries configured by paz.
-
-TBD.
-
-## DNS Collection [/cluster/dns]
-
-### List all DNS entries configured by paz [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "service": "api",
-                    "domain": "api.mydomain.com",
-                    "loadBalancer": "6770361ab0b049eda35d4ac58d9043d5"
-                }
-            ]
-
-## DNS [/cluster/dns/{service}]
-A single DNS thing with all its details.
-
-TBD
-
-### Retrieve a DNS thing [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "service": "api",
-                "domain": "api.mydomain.com",
-                "loadBalancer": "6770361ab0b049eda35d4ac58d9043d5"
-            }
-
-# Group Service
-A service registered in the service directory. Most of the data is directly taken from the service directory, but the Orchestrator does store a few additional pieces of information about running instances.
-
-## Service Collection [/services]
-
-### List all services [GET]
-+ Response 201 (application/json)
-
-    + Body
-
-            [
-                {
-                    "name": "api-service",
-                    "description": "API service for some platform",
-                    "dockerRepository": "lukebond/my-service"
-                },
-                "config": {
-                    "last": {},
-                    "next": {
-                        "publicFacing": true,
-                        "ports": [
-                            {
-                                "container": 9000,
-                                "host": 80
-                            }
-                        ],
-                        "env": {
-                            "key": "value"
-                        },
-                        "numInstances": 3
-                    }
-                }
-            ]
-
-### Create service [POST]
-
-+ Request
-
-    + Body
-
-            {
-                "name": "api-service",
-                "description": "API service for some platform",
-                "dockerRepository": "lukebond/my-service",
-                "publicFacing": true,
-                "ports": [
-                    {
-                        "container": 9000,
-                        "host": 80
-                    }
-                ],
-                "env": {
-                  "key": "value"
-                },
-                "numInstances": 1
-            }
+## Retrieve the Entry Point [GET]
 
 + Response 200 (application/json)
 
-            {
-                "name": "api-service",
-                "description": "API service for some platform",
-                "dockerRepository": "lukebond/my-service",
-                "config": {
-                    "last": {},
-                    "next": {
-                        "publicFacing": true,
-                        "ports": [
-                            {
-                                "container": 9000,
-                                "host": 80
-                            }
-                        ],
-                        "env": {
-                            "key": "value"
-                        },
-                        "numInstances": 3
-                    }
-                }
-            }
+        {
+            "questions_url": "/questions"
+        }
 
-## Service [/services/{name}]
-A single service object.
+## Group Question
+
+Resources related to questions in the API.
+
+## Question [/questions/{question_id}]
+
+A Question object has the following attributes:
+
++ question
++ published_at - An ISO8601 date when the question was published.
++ url
++ choices - An array of Choice objects.
 
 + Parameters
-    + name (required, string, `api`) ... unique name of the service.
+    + question_id: 1 (required, number) - ID of the Question in form of an integer
 
-### Retrieve a service [GET]
+### View a Questions Detail [GET]
+
 + Response 200 (application/json)
 
-    + Body
-
-            {
-                "name": "api",
-                "description": "Test service",
-                "dockerImage": "lukebond/my-service"
-            },
-            "config": {
-                "last": {},
-                "next": {
-                    "publicFacing": true,
-                    "ports": [
-                        {
-                            "container": 9000,
-                            "host": 80
-                        }
-                    ],
-                    "env": {
-                        "key": "value"
-                    },
-                    "numInstances": 3
+        {
+            "question": "Favourite programming language?",
+            "published_at": "2014-11-11T08:40:51.620Z",
+            "url": "/questions/1",
+            "choices": [
+                {
+                    "choice": "Swift",
+                    "url": "/questions/1/choices/1",
+                    "votes": 2048
+                }, {
+                    "choice": "Python",
+                    "url": "/questions/1/choices/2",
+                    "votes": 1024
+                }, {
+                    "choice": "Objective-C",
+                    "url": "/questions/1/choices/3",
+                    "votes": 512
+                }, {
+                    "choice": "Ruby",
+                    "url": "/questions/1/choices/4",
+                    "votes": 256
                 }
-            }
+            ]
+        }
 
-### Remove a service [DELETE]
-+ Response 204
+## Choice [/questions/{question_id}/choices/{choice_id}]
 
-# Group Service Config
++ Parameters
+    + question_id: 1 (required, number) - ID of the Question in form of an integer
+    + choice_id: 1 (required, number) - ID of the Choice in form of an integer
 
-## Last Config [/services/{name}/config/last]
+### Vote on a Choice [POST]
 
-### Retrieve Last Deployed Config [GET]
+This action allows you to vote on a question's choice.
 
-+ Response 200 (application/json)
++ Response 201
 
-    + Body
+    + Headers
 
-            {
-                "publicFacing": true,
-                "ports": [
-                    {
-                        "container": 9000,
-                        "host": 80
-                    }
-                ],
-                "env": {
-                    "key": "value"
-                },
-                "numInstances": 3
-            }
+            Location: /questions/1
 
-## Next Config [/services/{name}/config/next]
+## Questions Collection [/questions{?page}]
 
-### Retrieve Next Config [GET]
++ Parameters
+    + page: 1 (optional, number) - The page of questions to return
+
+### List All Questions [GET]
 
 + Response 200 (application/json)
 
+    + Headers
+
+            Link: </questions?page=2>; rel="next"
+
     + Body
 
-            {
-                "publicFacing": true,
-                "ports": [
-                    {
-                        "container": 9000,
-                        "host": 80
-                    }
-                ],
-                "env": {
-                    "key": "value"
-                },
-                "numInstances": 3
-            }
+            [
+                {
+                    "question": "Favourite programming language?",
+                    "published_at": "2014-11-11T08:40:51.620Z",
+                    "url": "/questions/1",
+                    "choices": [
+                        {
+                            "choice": "Swift",
+                            "url": "/questions/1/choices/1",
+                            "votes": 2048
+                        }, {
+                            "choice": "Python",
+                            "url": "/questions/1/choices/2",
+                            "votes": 1024
+                        }, {
+                            "choice": "Objective-C",
+                            "url": "/questions/1/choices/3",
+                            "votes": 512
+                        }, {
+                            "choice": "Ruby",
+                            "url": "/questions/1/choices/4",
+                            "votes": 256
+                        }
+                    ]
+                }
+            ]
 
-### Modify next config [PATCH]
-.
+### Create a New Question [POST]
+
+You may create your own question using this action. It takes a JSON
+object containing a question and a collection of answers in the
+form of choices.
+
++ question (string) - The question
++ choices (array[string]) - A collection of choices.
 
 + Request (application/json)
 
-    + Body
-
-            {
-              "publicFacing": false 
-            }
-
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "publicFacing": false,
-                "ports": [
-                    {
-                        "container": 9000,
-                        "host": 80
-                    }
-                ],
-                "env": {
-                    "key": "value"
-                },
-                "numInstances": 3
-            }
-
-
-## Config History [/services/{name}/config/history]
-
-### Retrieve Config History [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "1.0.0": {
-                    "publicFacing": true,
-                    "ports": [
-                        {
-                            "container": 9000,
-                            "host": 80
-                        }
-                    ],
-                    "env": {
-                        "key": "value"
-                    },
-                    "numInstances": 3
-                },
-                "1.0.1": {
-                    "publicFacing": true,
-                    "ports": [
-                        {
-                            "container": 9000,
-                            "host": 80
-                        }
-                    ],
-                    "env": {
-                        "key": "value"
-                    },
-                    "numInstances": 3
-                }
-            }
-
-## Config Version [/services/{name}/config/history/{version}]
-
-+ Parameters
-    + version (required, string, `1.0.1`) ... version of the config to retrieve.
-
-### Retrieve Config of Deployed Version [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "publicFacing": true,
-                "ports": [
-                    {
-                        "container": 9000,
-                        "host": 80
-                    }
-                ],
-                "env": {
-                    "key": "value"
-                },
-                "numInstances": 3
-            }
-
-# Group Service Units
-
-## Running units [/services/{name}/units]
-A running instance of this service in the cluster.
-
-### Retrieve units of service [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    "name": "api-1.0.1-1"
-                    "service": "api",
-                    "version": "1.0.1",
-                    "instance": 1,
-                    "activeState": "failed",
-                    "loadState": "loaded",
-                    "machineState": {
-                        "ID": "eb3691885bdc473f92a5d69de942b814",
-                        "Metadata": {},
-                        "PublicIP": "172.17.8.102",
-                        "TotalResources": {
-                            "Cores": 100,
-                            "Disk": 0,
-                            "Memory": 998
-                        },
-                        "Version": "0.5.0"
-                    },
-                    "subState": "failed"
-                }
+        {
+            "question": "Favourite programming language?",
+            "choices": [
+                "Swift",
+                "Python",
+                "Objective-C",
+                "Ruby"
             ]
+        }
 
-## Running unit [/services/{name}/units/{id}]
-A running instance of a service in the cluster.
++ Response 201 (application/json)
 
-+ Parameters
-    + id (required, string, `api-1.0.1-1`) ... unique name of the unit.
+    + Headers
 
-### Retrieve units of service [GET]
-+ Response 200 (application/json)
+            Location: /questions/2
 
     + Body
 
             {
-                "name": "api-1.0.1-1"
-                "service": "api",
-                "version": "1.0.1",
-                "instance": 1,
-                "activeState": "failed",
-                "loadState": "loaded",
-                "machineState": {
-                    "ID": "eb3691885bdc473f92a5d69de942b814",
-                    "Metadata": {},
-                    "PublicIP": "172.17.8.102",
-                    "TotalResources": {
-                        "Cores": 100,
-                        "Disk": 0,
-                        "Memory": 998
-                    },
-                    "Version": "0.5.0"
-                },
-                "subState": "failed"
-            }
-
-## Unit health [/services/{name}/units/{id}/health]
-Basic health information for a running unit.
-
-### Retrieve unit health [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "healthy": true
+                "question": "Favourite programming language?",
+                "published_at": "2014-11-11T08:40:51.620Z",
+                "url": "/questions/2",
+                "choices": [
+                    {
+                        "choice": "Swift",
+                        "url": "/questions/2/choices/1",
+                        "votes": 0
+                    }, {
+                        "choice": "Python",
+                        "url": "/questions/2/choices/2",
+                        "votes": 0
+                    }, {
+                        "choice": "Objective-C",
+                        "url": "/questions/2/choices/3",
+                        "votes": 0
+                    }, {
+                        "choice": "Ruby",
+                        "url": "/questions/2/choices/4",
+                        "votes": 0
+                    }
+                ]
             }
