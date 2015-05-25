@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://www.google.com
+HOST: http://paz-orchestrator.paz
 
 # paz-orchestrator
 The service that ties together the various components of the paz platform, providing cluster administration and health monitoring of clusters, hosts and services.
@@ -21,10 +21,58 @@ A single cluster object with all its details.
                 "hostCount": 5
             }
 
-## Cluster stats [/cluster/health]
-Basic health information for a cluster.
+# Group Host
+A host within a cluster.
 
-### Get cluster stats [GET]
+## Host Collection [/cluster/hosts]
+
+### List all hosts [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "ID: "eb3691885bdc473f92a5d69de942b81",
+                    "PublicIP": "172.17.8.102",
+                    "Metadata": {},
+                    "Version": "0.5.0",
+                    "units": ['unit1', 'unit2', 'unit3'],
+                    "TotalResources": {
+                        "Cores": 100,
+                        "Memory": 998,
+                        "Disk": 0
+                    }
+                }
+            ]
+
+## Host [/cluster/hosts/{id}]
+A single host with all its details.
+
+### Retrieve a host [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "ID": "eb3691885bdc473f92a5d69de942b814",
+                "PublicIP": "172.17.8.102",
+                "Metadata": {},
+                "Version": "0.5.0",
+                "units": ['unit1', 'unit2', 'unit3'],
+                "TotalResources": {
+                    "Cores": 100,
+                    "Memory": 998,
+                    "Disk": 0
+                }
+            }
+
+## Host health [/cluster/host/{id}/health]
+Health information for a host.
+
+TBD
+
+### Get host health [GET]
 + Response 200 (application/json)
 
     + Body
@@ -67,7 +115,7 @@ A unit running on a CoreOS cluster.
             ]
 
 ## Unit [/cluster/units/{id}]
-A single host with all its details.
+A single unit with all its details.
 
 ### Retrieve a host [GET]
 + Response 200 (application/json)
@@ -96,7 +144,7 @@ A single host with all its details.
             }$
 
 # Group Load Balancers
-A load balancers within the cluster deployed by paz.
+A list of load balancers within the cluster deployed by paz.
 
 TBD.
 
@@ -109,6 +157,7 @@ TBD.
 
             [
                 {
+                    "id": "6770361ab0b049eda35d4ac58d9043d5",
                     "service": "api",
                     "backends": {
                         "current": {
@@ -119,22 +168,82 @@ TBD.
                                     "unit": "api-1.0.1-1",
                                     "host": "172.17.8.101",
                                     "port": "49165",
-                                    "sessions": 5,
-                                    "queuedRequests": 3
+                                    "haproxy": {
+                                        "name": "HAProxy",
+                                        "version": "1.4.18",
+                                        "release_data": "2011/09/16",
+                                        "nbproc": "1",
+                                        "process_num": "1",
+                                        "pid": "30984",
+                                        "uptime": "0d 2h01m42s",
+                                        "uptime_sec": "7302",
+                                        "mem_max_mb": "0",
+                                        "ulimit_n": "8210",
+                                        "max_sock": "8210",
+                                        "max_conn": "4096",
+                                        "max_pipes": "0",
+                                        "current_conns": "2",
+                                        "pipes_used": "0",
+                                        "pipes_free": "0",
+                                        "tasks": "5",
+                                        "run_queue": "1",
+                                        "node": "haproxyserver-0",
+                                        "development": ""
+                                    }
                                 },
                                 {
                                     "unit": "api-1.0.1-2",
                                     "host": "172.17.8.102",
                                     "port": "49166",
-                                    "sessions": 3,
-                                    "queuedRequests": 2
+                                    "haproxy": {
+                                        "name": "HAProxy",
+                                        "version": "1.4.18",
+                                        "release_data": "2011/09/16",
+                                        "nbproc": "1",
+                                        "process_num": "1",
+                                        "pid": "30984",
+                                        "uptime": "0d 2h01m42s",
+                                        "uptime_sec": "7302",
+                                        "mem_max_mb": "0",
+                                        "ulimit_n": "8210",
+                                        "max_sock": "8210",
+                                        "max_conn": "4096",
+                                        "max_pipes": "0",
+                                        "current_conns": "2",
+                                        "pipes_used": "0",
+                                        "pipes_free": "0",
+                                        "tasks": "5",
+                                        "run_queue": "1",
+                                        "node": "haproxyserver-0",
+                                        "development": ""
+                                    }
                                 },
                                 {
                                     "unit": "api-1.0.1-3",
                                     "host": "172.17.8.103",
                                     "port": "49167",
-                                    "sessions": 2,
-                                    "queuedRequests": 1
+                                    "haproxy": {
+                                        "name": "HAProxy",
+                                        "version": "1.4.18",
+                                        "release_data": "2011/09/16",
+                                        "nbproc": "1",
+                                        "process_num": "1",
+                                        "pid": "30984",
+                                        "uptime": "0d 2h01m42s",
+                                        "uptime_sec": "7302",
+                                        "mem_max_mb": "0",
+                                        "ulimit_n": "8210",
+                                        "max_sock": "8210",
+                                        "max_conn": "4096",
+                                        "max_pipes": "0",
+                                        "current_conns": "2",
+                                        "pipes_used": "0",
+                                        "pipes_free": "0",
+                                        "tasks": "5",
+                                        "run_queue": "1",
+                                        "node": "haproxyserver-0",
+                                        "development": ""
+                                    }
                                 }
                             ]
                         },
@@ -180,6 +289,7 @@ TBD
     + Body
 
             {
+                "id": "6770361ab0b049eda35d4ac58d9043d5",
                 "service": "api",
                 "backends": {
                     "current": {
@@ -240,23 +350,26 @@ TBD
             }
 
 # Group DNS
-DNS stuff configured by paz.
+DNS entries configured by paz.
 
 TBD.
 
 ## DNS Collection [/cluster/dns]
 
-### List all DNS things [GET]
+### List all DNS entries configured by paz [GET]
 + Response 200 (application/json)
 
     + Body
 
             [
                 {
+                    "service": "api",
+                    "domain": "api.mydomain.com",
+                    "loadBalancer": "6770361ab0b049eda35d4ac58d9043d5"
                 }
             ]
 
-## DNS [/cluster/dns/{id}]
+## DNS [/cluster/dns/{service}]
 A single DNS thing with all its details.
 
 TBD
@@ -267,78 +380,9 @@ TBD
     + Body
 
             {
-            }
-
-
-# Group Host
-A host within a cluster.
-
-## Host Collection [/cluster/hosts]
-
-### List all hosts [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            [
-                {
-                    id: 'eb3691885bdc473f92a5d69de942b814',
-                    publicIp: '172.17.8.102',
-                    metadata: {},
-                    version: '0.5.0',
-                    totalResources: {
-                        cores: 100,
-                        memory: 998,
-                        disk: 0
-                    }
-                }
-            ]
-
-## Host [/cluster/hosts/{id}]
-A single host with all its details.
-
-### Retrieve a host [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                id: 'eb3691885bdc473f92a5d69de942b814',
-                publicIp: '172.17.8.102',
-                metadata: {},
-                version: '0.5.0',
-                totalResources: {
-                    cores: 100,
-                    memory: 998,
-                    disk: 0
-                }
-            }
-
-## Host health [/cluster/host/{id}/health]
-Health information for a host.
-
-TBD
-
-### Get host health [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "healthy": true
-            }
-
-## Host stats [/cluster/hosts/{id}/stats]
-Stats for a host.
-
-TBD
-
-### Get host stats [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
+                "service": "api",
+                "domain": "api.mydomain.com",
+                "loadBalancer": "6770361ab0b049eda35d4ac58d9043d5"
             }
 
 # Group Service
@@ -347,24 +391,31 @@ A service registered in the service directory. Most of the data is directly take
 ## Service Collection [/services]
 
 ### List all services [GET]
-+ Response 200 (application/json)
++ Response 201 (application/json)
 
     + Body
 
             [
                 {
-                    "id": "26bc0a1bcc30469c99d9b1f69fc5e36c",
                     "name": "api-service",
                     "description": "API service for some platform",
-                    "dockerImage": "lukebond/my-service",
-                    "ports": [
-                        {
-                            "container": 9000,
-                            "host": 80
-                        }
-                    ],
-                    "autoDeploy": "always",
-                    "numInstances": 1
+                    "dockerRepository": "lukebond/my-service"
+                },
+                "config": {
+                    "last": {},
+                    "next": {
+                        "publicFacing": true,
+                        "ports": [
+                            {
+                                "container": 9000,
+                                "host": 80
+                            }
+                        ],
+                        "env": {
+                            "key": "value"
+                        },
+                        "numInstances": 3
+                    }
                 }
             ]
 
@@ -377,39 +428,49 @@ A service registered in the service directory. Most of the data is directly take
             {
                 "name": "api-service",
                 "description": "API service for some platform",
-                "dockerImage": "lukebond/my-service",
+                "dockerRepository": "lukebond/my-service",
+                "publicFacing": true,
                 "ports": [
                     {
                         "container": 9000,
                         "host": 80
                     }
                 ],
-                "autoDeploy": "always",
+                "env": {
+                  "key": "value"
+                },
                 "numInstances": 1
             }
 
 + Response 200 (application/json)
 
             {
-                "id": "26bc0a1bcc30469c99d9b1f69fc5e36c",
                 "name": "api-service",
                 "description": "API service for some platform",
-                "dockerImage": "lukebond/my-service",
-                "ports": [
-                    {
-                        "container": 9000,
-                        "host": 80
+                "dockerRepository": "lukebond/my-service",
+                "config": {
+                    "last": {},
+                    "next": {
+                        "publicFacing": true,
+                        "ports": [
+                            {
+                                "container": 9000,
+                                "host": 80
+                            }
+                        ],
+                        "env": {
+                            "key": "value"
+                        },
+                        "numInstances": 3
                     }
-                ],
-                "autoDeploy": "always",
-                "numInstances": 1
+                }
             }
 
-## Service [/services/{id}]
+## Service [/services/{name}]
 A single service object.
 
 + Parameters
-    + id (required, string, `26bc0a1bcc30469c99d9b1f69fc5e36c`) ... UUID of the service.
+    + name (required, string, `api`) ... unique name of the service.
 
 ### Retrieve a service [GET]
 + Response 200 (application/json)
@@ -417,33 +478,85 @@ A single service object.
     + Body
 
             {
-                "id": "26bc0a1bcc30469c99d9b1f69fc5e36c",
-                "name": "my-service",
+                "name": "api",
                 "description": "Test service",
-                "dockerImage": "lukebond/my-service",
+                "dockerImage": "lukebond/my-service"
+            },
+            "config": {
+                "last": {},
+                "next": {
+                    "publicFacing": true,
+                    "ports": [
+                        {
+                            "container": 9000,
+                            "host": 80
+                        }
+                    ],
+                    "env": {
+                        "key": "value"
+                    },
+                    "numInstances": 3
+                }
+            }
+
+### Remove a service [DELETE]
++ Response 204
+
+# Group Service Config
+
+## Last Config [/services/{name}/config/last]
+
+### Retrieve Last Deployed Config [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "publicFacing": true,
                 "ports": [
                     {
                         "container": 9000,
                         "host": 80
                     }
                 ],
-                "autoDeploy": "always",
-                "numInstances": 1
+                "env": {
+                    "key": "value"
+                },
+                "numInstances": 3
             }
 
-### Modify a service [PATCH]
-Modify properties of a service.
+## Next Config [/services/{name}/config/next]
+
+### Retrieve Next Config [GET]
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "publicFacing": true,
+                "ports": [
+                    {
+                        "container": 9000,
+                        "host": 80
+                    }
+                ],
+                "env": {
+                    "key": "value"
+                },
+                "numInstances": 3
+            }
+
+### Modify next config [PATCH]
+.
 
 + Request (application/json)
 
     + Body
 
             {
-                "description": "Test service",
-                "dockerImage": "lukebond/my-service",
-                "ports": [],
-                "autoDeploy": "never",
-                "numInstances": 3
+              "publicFacing": false 
             }
 
 + Response 200 (application/json)
@@ -451,65 +564,149 @@ Modify properties of a service.
     + Body
 
             {
-                "id": "30329c934e344883b17de444a3966d7c",
-                "name": "my-service",
-                "description": "Test service",
-                "dockerImage": "lukebond/my-service",
-                "ports": [],
-                "autoDeploy": "never",
+                "publicFacing": false,
+                "ports": [
+                    {
+                        "container": 9000,
+                        "host": 80
+                    }
+                ],
+                "env": {
+                    "key": "value"
+                },
                 "numInstances": 3
             }
 
-### Remove a service [DELETE]
-+ Response 204
 
-## Service instances [/services/instances]
+## Config History [/services/{name}/config/history]
 
-### Retrieve instances of all services [GET]
+### Retrieve Config History [GET]
 + Response 200 (application/json)
 
     + Body
 
             {
-              "paz-service-directory": {
-                [
-                  "172.17.8.102:49154",
-                  "172.17.8.101:49154",
-                  "172.17.8.103:49154"
-                ]
-              },
-              "paz-orchestrator": {
-                [
-                  "172.17.8.102:49153",
-                  "172.17.8.101:49153",
-                  "172.17.8.103:49153"
-                ]
-              },
-              "paz-scheduler": {
-                [
-                  "172.17.8.102:49152",
-                  "172.17.8.101:49152",
-                  "172.17.8.103:49152"
-                ]
-              }
+                "1.0.0": {
+                    "publicFacing": true,
+                    "ports": [
+                        {
+                            "container": 9000,
+                            "host": 80
+                        }
+                    ],
+                    "env": {
+                        "key": "value"
+                    },
+                    "numInstances": 3
+                },
+                "1.0.1": {
+                    "publicFacing": true,
+                    "ports": [
+                        {
+                            "container": 9000,
+                            "host": 80
+                        }
+                    ],
+                    "env": {
+                        "key": "value"
+                    },
+                    "numInstances": 3
+                }
             }
 
-## Service instances [/services/{id}/instances]
+## Config Version [/services/{name}/config/history/{version}]
 
-### Retrieve instances of service [GET]
++ Parameters
+    + version (required, string, `1.0.1`) ... version of the config to retrieve.
+
+### Retrieve Config of Deployed Version [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "publicFacing": true,
+                "ports": [
+                    {
+                        "container": 9000,
+                        "host": 80
+                    }
+                ],
+                "env": {
+                    "key": "value"
+                },
+                "numInstances": 3
+            }
+
+# Group Service Units
+
+## Running units [/services/{name}/units]
+A running instance of this service in the cluster.
+
+### Retrieve units of service [GET]
 + Response 200 (application/json)
 
     + Body
 
             [
-              "172.17.8.102:49153",
-              "172.17.8.101:49153",
-              "172.17.8.103:49153"
+                {
+                    "name": "api-1.0.1-1"
+                    "service": "api",
+                    "version": "1.0.1",
+                    "instance": 1,
+                    "activeState": "failed",
+                    "loadState": "loaded",
+                    "machineState": {
+                        "ID": "eb3691885bdc473f92a5d69de942b814",
+                        "Metadata": {},
+                        "PublicIP": "172.17.8.102",
+                        "TotalResources": {
+                            "Cores": 100,
+                            "Disk": 0,
+                            "Memory": 998
+                        },
+                        "Version": "0.5.0"
+                    },
+                    "subState": "failed"
+                }
             ]
 
-## Service health [/services/{id}/health]
+## Running unit [/services/{name}/units/{id}]
+A running instance of a service in the cluster.
 
-### Retrieve service health [GET]
++ Parameters
+    + id (required, string, `api-1.0.1-1`) ... unique name of the unit.
+
+### Retrieve units of service [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "name": "api-1.0.1-1"
+                "service": "api",
+                "version": "1.0.1",
+                "instance": 1,
+                "activeState": "failed",
+                "loadState": "loaded",
+                "machineState": {
+                    "ID": "eb3691885bdc473f92a5d69de942b814",
+                    "Metadata": {},
+                    "PublicIP": "172.17.8.102",
+                    "TotalResources": {
+                        "Cores": 100,
+                        "Disk": 0,
+                        "Memory": 998
+                    },
+                    "Version": "0.5.0"
+                },
+                "subState": "failed"
+            }
+
+## Unit health [/services/{name}/units/{id}/health]
+Basic health information for a running unit.
+
+### Retrieve unit health [GET]
 + Response 200 (application/json)
 
     + Body
@@ -517,16 +714,3 @@ Modify properties of a service.
             {
                 "healthy": true
             }
-
-## Service stats [/services/{id}/stats]
-
-### Retrieve service stats [GET]
-+ Response 200 (application/json)
-
-    + Body
-
-            {
-                "deploys": 5,
-                "upTime": 86400000
-            }
-
