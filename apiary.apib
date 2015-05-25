@@ -1,0 +1,532 @@
+FORMAT: 1A
+HOST: http://www.google.com
+
+# paz-orchestrator
+The service that ties together the various components of the paz platform, providing cluster administration and health monitoring of clusters, hosts and services.
+
+# Group Cluster
+An isolated collection of machines for a particular purpose, e.g. dev, integration, qa, user-testing, staging and production.
+
+For now, there is only one cluster.
+
+## Cluster [/cluster]
+A single cluster object with all its details.
+
+### Retrieve a cluster [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "hostCount": 5
+            }
+
+## Cluster stats [/cluster/health]
+Basic health information for a cluster.
+
+### Get cluster stats [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "healthy": true
+            }
+
+# Group Unit
+A unit running on a CoreOS cluster.
+
+## Unit Collection [/cluster/units]
+
+### List all units [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "name": "api-1.0.1-1"
+                    "service": "api",
+                    "version": "1.0.1",
+                    "instance": 1,
+                    "activeState": "failed",
+                    "loadState": "loaded",
+                    "machineState": {
+                        "ID": "eb3691885bdc473f92a5d69de942b814",
+                        "Metadata": {},
+                        "PublicIP": "172.17.8.102",
+                        "TotalResources": {
+                            "Cores": 100,
+                            "Disk": 0,
+                            "Memory": 998
+                        },
+                        "Version": "0.5.0"
+                    },
+                    "subState": "failed"
+                }
+            ]
+
+## Unit [/cluster/units/{id}]
+A single host with all its details.
+
+### Retrieve a host [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "name": "api-1.0.1-1"
+                "service": "api",
+                "version": "1.0.1",
+                "instance": 1,
+                "activeState": "failed",
+                "loadState": "loaded",
+                "machineState": {
+                    "ID": "eb3691885bdc473f92a5d69de942b814",
+                    "Metadata": {},
+                    "PublicIP": "172.17.8.102",
+                    "TotalResources": {
+                        "Cores": 100,
+                        "Disk": 0,
+                        "Memory": 998
+                    },
+                    "Version": "0.5.0"
+                },
+                "subState": "failed"
+            }$
+
+# Group Load Balancers
+A load balancers within the cluster deployed by paz.
+
+TBD.
+
+## Load Balancer Collection [/cluster/load-balancers]
+
+### List all load balancers [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "service": "api",
+                    "backends": {
+                        "current": {
+                            "version": "1.0.1",
+                            "weighting": 85,
+                            "hosts": [
+                                {
+                                    "unit": "api-1.0.1-1",
+                                    "host": "172.17.8.101",
+                                    "port": "49165",
+                                    "sessions": 5,
+                                    "queuedRequests": 3
+                                },
+                                {
+                                    "unit": "api-1.0.1-2",
+                                    "host": "172.17.8.102",
+                                    "port": "49166",
+                                    "sessions": 3,
+                                    "queuedRequests": 2
+                                },
+                                {
+                                    "unit": "api-1.0.1-3",
+                                    "host": "172.17.8.103",
+                                    "port": "49167",
+                                    "sessions": 2,
+                                    "queuedRequests": 1
+                                }
+                            ]
+                        },
+                        "next": {
+                            "version": "1.0.2",
+                            "weighting": 15,
+                            "hosts": [
+                                {
+                                    "unit": "api-1.0.2-1",
+                                    "host": "172.17.8.101",
+                                    "port": "49168",
+                                    "sessions": 3,
+                                    "queuedRequests": 2
+                                },
+                                {
+                                    "unit": "api-1.0.2-2",
+                                    "host": "172.17.8.102",
+                                    "port": "49169",
+                                    "sessions": 2,
+                                    "queuedRequests": 1
+                                },
+                                {
+                                    "unit": "api-1.0.2-3",
+                                    "host": "172.17.8.103",
+                                    "port": "49170",
+                                    "sessions": 1,
+                                    "queuedRequests": 0
+                                }
+                            ]
+                        }
+                    },
+                }
+            ]
+
+## Load Balancer [/cluster/load-balancers/{id}]
+A single load balancer with all its details.
+
+TBD
+
+### Retrieve a load balancer [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "service": "api",
+                "backends": {
+                    "current": {
+                        "version": "1.0.1",
+                        "weighting": 85,
+                        "hosts": [
+                            {
+                                "unit": "api-1.0.1-1",
+                                "host": "172.17.8.101",
+                                "port": "49165",
+                                "sessions": 5,
+                                "queuedRequests": 3
+                            },
+                            {
+                                "unit": "api-1.0.1-2",
+                                "host": "172.17.8.102",
+                                "port": "49166",
+                                "sessions": 3,
+                                "queuedRequests": 2
+                            },
+                            {
+                                "unit": "api-1.0.1-3",
+                                "host": "172.17.8.103",
+                                "port": "49167",
+                                "sessions": 2,
+                                "queuedRequests": 1
+                            }
+                        ]
+                    },
+                    "next": {
+                        "version": "1.0.2",
+                        "weighting": 15,
+                        "hosts": [
+                            {
+                                "unit": "api-1.0.2-1",
+                                "host": "172.17.8.101",
+                                "port": "49168",
+                                "sessions": 3,
+                                "queuedRequests": 2
+                            },
+                            {
+                                "unit": "api-1.0.2-2",
+                                "host": "172.17.8.102",
+                                "port": "49169",
+                                "sessions": 2,
+                                "queuedRequests": 1
+                            },
+                            {
+                                "unit": "api-1.0.2-3",
+                                "host": "172.17.8.103",
+                                "port": "49170",
+                                "sessions": 1,
+                                "queuedRequests": 0
+                            }
+                        ]
+                    }
+                },
+            }
+
+# Group DNS
+DNS stuff configured by paz.
+
+TBD.
+
+## DNS Collection [/cluster/dns]
+
+### List all DNS things [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                }
+            ]
+
+## DNS [/cluster/dns/{id}]
+A single DNS thing with all its details.
+
+TBD
+
+### Retrieve a DNS thing [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+            }
+
+
+# Group Host
+A host within a cluster.
+
+## Host Collection [/cluster/hosts]
+
+### List all hosts [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    id: 'eb3691885bdc473f92a5d69de942b814',
+                    publicIp: '172.17.8.102',
+                    metadata: {},
+                    version: '0.5.0',
+                    totalResources: {
+                        cores: 100,
+                        memory: 998,
+                        disk: 0
+                    }
+                }
+            ]
+
+## Host [/cluster/hosts/{id}]
+A single host with all its details.
+
+### Retrieve a host [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                id: 'eb3691885bdc473f92a5d69de942b814',
+                publicIp: '172.17.8.102',
+                metadata: {},
+                version: '0.5.0',
+                totalResources: {
+                    cores: 100,
+                    memory: 998,
+                    disk: 0
+                }
+            }
+
+## Host health [/cluster/host/{id}/health]
+Health information for a host.
+
+TBD
+
+### Get host health [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "healthy": true
+            }
+
+## Host stats [/cluster/hosts/{id}/stats]
+Stats for a host.
+
+TBD
+
+### Get host stats [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+            }
+
+# Group Service
+A service registered in the service directory. Most of the data is directly taken from the service directory, but the Orchestrator does store a few additional pieces of information about running instances.
+
+## Service Collection [/services]
+
+### List all services [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                {
+                    "id": "26bc0a1bcc30469c99d9b1f69fc5e36c",
+                    "name": "api-service",
+                    "description": "API service for some platform",
+                    "dockerImage": "lukebond/my-service",
+                    "ports": [
+                        {
+                            "container": 9000,
+                            "host": 80
+                        }
+                    ],
+                    "autoDeploy": "always",
+                    "numInstances": 1
+                }
+            ]
+
+### Create service [POST]
+
++ Request
+
+    + Body
+
+            {
+                "name": "api-service",
+                "description": "API service for some platform",
+                "dockerImage": "lukebond/my-service",
+                "ports": [
+                    {
+                        "container": 9000,
+                        "host": 80
+                    }
+                ],
+                "autoDeploy": "always",
+                "numInstances": 1
+            }
+
++ Response 200 (application/json)
+
+            {
+                "id": "26bc0a1bcc30469c99d9b1f69fc5e36c",
+                "name": "api-service",
+                "description": "API service for some platform",
+                "dockerImage": "lukebond/my-service",
+                "ports": [
+                    {
+                        "container": 9000,
+                        "host": 80
+                    }
+                ],
+                "autoDeploy": "always",
+                "numInstances": 1
+            }
+
+## Service [/services/{id}]
+A single service object.
+
++ Parameters
+    + id (required, string, `26bc0a1bcc30469c99d9b1f69fc5e36c`) ... UUID of the service.
+
+### Retrieve a service [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": "26bc0a1bcc30469c99d9b1f69fc5e36c",
+                "name": "my-service",
+                "description": "Test service",
+                "dockerImage": "lukebond/my-service",
+                "ports": [
+                    {
+                        "container": 9000,
+                        "host": 80
+                    }
+                ],
+                "autoDeploy": "always",
+                "numInstances": 1
+            }
+
+### Modify a service [PATCH]
+Modify properties of a service.
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "description": "Test service",
+                "dockerImage": "lukebond/my-service",
+                "ports": [],
+                "autoDeploy": "never",
+                "numInstances": 3
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "id": "30329c934e344883b17de444a3966d7c",
+                "name": "my-service",
+                "description": "Test service",
+                "dockerImage": "lukebond/my-service",
+                "ports": [],
+                "autoDeploy": "never",
+                "numInstances": 3
+            }
+
+### Remove a service [DELETE]
++ Response 204
+
+## Service instances [/services/instances]
+
+### Retrieve instances of all services [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+              "paz-service-directory": {
+                [
+                  "172.17.8.102:49154",
+                  "172.17.8.101:49154",
+                  "172.17.8.103:49154"
+                ]
+              },
+              "paz-orchestrator": {
+                [
+                  "172.17.8.102:49153",
+                  "172.17.8.101:49153",
+                  "172.17.8.103:49153"
+                ]
+              },
+              "paz-scheduler": {
+                [
+                  "172.17.8.102:49152",
+                  "172.17.8.101:49152",
+                  "172.17.8.103:49152"
+                ]
+              }
+            }
+
+## Service instances [/services/{id}/instances]
+
+### Retrieve instances of service [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            [
+              "172.17.8.102:49153",
+              "172.17.8.101:49153",
+              "172.17.8.103:49153"
+            ]
+
+## Service health [/services/{id}/health]
+
+### Retrieve service health [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "healthy": true
+            }
+
+## Service stats [/services/{id}/stats]
+
+### Retrieve service stats [GET]
++ Response 200 (application/json)
+
+    + Body
+
+            {
+                "deploys": 5,
+                "upTime": 86400000
+            }
+
