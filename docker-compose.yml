@@ -20,7 +20,7 @@ svcdir:
   ports:
    - "9001:9001"
 etcd:
-  image: coreos/etcd:v0.5.0_alpha.5
+  image: coreos/etcd:v0.4.6
   ports:
    - "4001:4001"
    - "7001:7001"
