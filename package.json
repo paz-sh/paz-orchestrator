@@ -7,7 +7,7 @@
     "codestyle": "jscs -p google bin/ lib/ middleware/ resources/ test/ server.js",
     "lint": "eslint .",
     "coverage": "istanbul cover node test/fleet-watch-machines/test.js",
-    "test": "fig build && fig up -d && lab && fig stop",
+    "test": "docker-compose build && docker-compose up -d && sleep 3 && lab && docker-compose stop",
     "docs": "mkdir -p docs/generated && aglio -i docs/api-blueprint.md -o docs/generated/index.html",
     "docs-server": "st -p 9002 -d docs/generated -i index.html"
   },
