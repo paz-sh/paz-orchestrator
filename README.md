@@ -1,3 +1,5 @@
+[![Latest Docs](http://img.shields.io/badge/docs-latest-blue.svg)](http://docs.pazorchestrator.apiary.io)
+
 # Orchestrator
 
 Central command for the paz platform, providing cluster management as well as health and stats at the cluster, machine and service level. 
@@ -15,7 +17,7 @@ $ npm run docs-server
 
 ...and going to `http://localhost:9002` in the browser to see them.
 
-The API documentation is generated from `docs/api-blueprint.md`.
+The API documentation is generated from `apiary.apib`.
 
 ## Developing against the Orchestrator
 
