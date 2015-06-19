@@ -7,6 +7,7 @@ orchestrator:
    - PAZ_ORCHESTRATOR_ETCD_ENDPOINT=etcd_1:2379
    - PAZ_ORCHESTRATOR_CORS=true
    - PAZ_DNS_DISABLED=true
+   - DEBUG
   links:
    - svcdir
    - etcd
@@ -22,12 +23,10 @@ svcdir:
    - "9001:9001"
 etcd:
   image: quay.io/coreos/etcd:latest
-  environment:
-   - ETCD_ADDR=192.168.1.14:2379
-   - ETCD_PEER_ADDR=192.168.1.14:2380
+  command: >
+    --listen-client-urls 'http://0.0.0.0:2379'
+    --advertise-client-urls 'http://192.168.1.14:2379'
   ports:
-   - "4001:4001"
-   - "7001:7001"
    - "2379:2379"
    - "2380:2380"
 scheduler:
@@ -38,6 +37,7 @@ scheduler:
    - PAZ_SCHEDULER_GEN_KEY=false
    - PAZ_SCHEDULER_NODEPLOY=true
    - PAZ_SCHEDULER_ETCD_ENDPOINT=etcd_1:2379
+   - DEBUG
   links:
    - svcdir
    - etcd
