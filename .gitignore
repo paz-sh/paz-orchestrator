@@ -10,3 +10,4 @@ docs/generated
 logs
 pids
 coverage
+docker-compose.yml.bak

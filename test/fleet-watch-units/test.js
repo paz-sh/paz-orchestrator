@@ -11,8 +11,8 @@ var host = process.env.DOCKER_IP || 'localhost';
 
 var lab = exports.lab = Lab.script();
 var expect = Lab.expect;
-var etcd = new Etcd(host, 4001);
-var watcher = new Watcher({'etcd-endpoint': host + ':4001'});
+var etcd = new Etcd(host, 2379);
+var watcher = new Watcher({'etcd-endpoint': host + ':2379'});
 var unit = fixtures.unit;
 
 lab.experiment('Fleet Watch Units', function() {

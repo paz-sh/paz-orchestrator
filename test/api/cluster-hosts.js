@@ -13,7 +13,7 @@ var orchestratorPath = ['http://', host, ':', orchestratorPort].join('');
 
 var lab = exports.lab = Lab.script();
 var expect = Lab.expect;
-var etcd = new Etcd(host, 4001);
+var etcd = new Etcd(host, 2379);
 var orchestrator = supertest(orchestratorPath);
 var machine = fixtures.host;
 

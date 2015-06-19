@@ -61,7 +61,7 @@ The `-d` means "run in the background" so you get your cmd-prompt back. As you c
 $ fig ps
            Name                 Command      State               Ports
 -----------------------------------------------------------------------------------
-orchestrator_etcd_1           /bin/bash      Up      7001->7001/tcp, 4001->4001/tcp
+orchestrator_etcd_1           /bin/bash      Up      7001->7001/tcp, 2379->2379/tcp
 orchestrator_svcdir_1         ./bin/server   Up      9001->9001/tcp
 orchestrator_scheduler_1      ./bin/server   Up      9002->9002/tcp
 orchestrator_orchestrator_1   ./bin/server   Up      9000->9000/tcp
@@ -140,7 +140,7 @@ Now let's try running a service on the platform. We'll use a basic "hello world"
 
 Find out which host and port the service-directory is running on:
 ```
-$ etcdctl --peers=172.17.8.101:4001 get /paz/services/paz-service-directory
+$ etcdctl --peers=172.17.8.101:2379 get /paz/services/paz-service-directory
 172.17.8.103:49153
 ```
 
@@ -152,7 +152,7 @@ $ curl -XPOST -H "Content-Type: application/json" -d @contrived-service-1.json 1
 
 Now get the host and port of the scheduler:
 ```
-$ etcdctl --peers=172.17.8.101:4001 get /paz/services/paz-scheduler
+$ etcdctl --peers=172.17.8.101:2379 get /paz/services/paz-scheduler
 172.17.8.103:49154
 ```
 
