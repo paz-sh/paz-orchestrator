@@ -16,7 +16,6 @@ var expect = Lab.expect;
 var watcher = new Watcher({'etcd-endpoint': host + ':2379'});
 var unit = fixtures.unit;
 
-
 lab.experiment('Fleet Watch Units', function() {
   lab.before(function(done) {
     etcd.mkdir('_coreos.com/fleet/state', function(err) {
