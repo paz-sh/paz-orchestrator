@@ -6,14 +6,16 @@ var Lab = require('lab');
 var Etcd = require('node-etcd');
 var Watcher = require('../../lib/fleet-watch-units');
 var fixtures = require('../fixtures/etcd.json');
-
-var host = process.env.DOCKER_IP || 'localhost';
+var url = require('url');
 
 var lab = exports.lab = Lab.script();
+var host = process.env.DOCKER_IP || ('http://' + 'localhost');
+var urlData = url.parse(host);
+var etcd = new Etcd(urlData.hostname, 2379);
 var expect = Lab.expect;
-var etcd = new Etcd(host, 2379);
 var watcher = new Watcher({'etcd-endpoint': host + ':2379'});
 var unit = fixtures.unit;
+
 
 lab.experiment('Fleet Watch Units', function() {
   lab.before(function(done) {
