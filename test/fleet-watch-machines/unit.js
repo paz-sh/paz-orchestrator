@@ -49,8 +49,19 @@ lab.experiment('helper.hostsObjToArray', function() {
     expect(state[1].obj).to.equal(2);
     done();
   });
+
+  lab.test('handles empty input', function(done) {
+    var state = helper.hostsObjToArray({});
+    expect(state).to.be.instanceOf(Array);
+    done();
+  });
 });
 
 lab.experiment('addUnitsArray', function() {
-  // XXX TODO
+  lab.test('adds .units array to input object', function(done) {
+    var obj = {};
+    helper.addUnitsArray([], obj);
+    expect(obj).to.have.property('units');
+    done();
+  });
 });
