@@ -1,48 +1,20 @@
 'use strict';
 
-var shouldSendUnit = require('../../lib/check-unit.js');
+var helper = require('./helper.js');
 
 module.exports = function(cfg) {
   var controller = {};
   var machinesWatcher = cfg.machinesWatcher;
   var unitsWatcher = cfg.unitsWatcher;
 
-  function hostsObjToArray(hosts) {
-    var arr = [];
-    Object.keys(hosts).forEach(function(key) {
-      arr.push(hosts[key]);
-    });
-    return arr;
-  }
-
-  function addUnitsArray(host, query) {
-    var units = unitsWatcher.getState();
-
-    host.units = [];
-
-    for (var key in units) {
-      if (units.hasOwnProperty(key)) {
-
-        if (!shouldSendUnit(key, query)) {
-          delete units[key];
-        } else {
-          if (units[key].machineState.ID === host.ID) {
-            host.units.push(key.substr(0, key.lastIndexOf('.')));
-          }
-        }
-      }
-    }
-
-    return host;
-  }
-
   controller.list = function(req, res) {
     req.log.info({'hosts.list': '*', 'uuid': req._uuid});
 
-    var state = hostsObjToArray(machinesWatcher.getState());
+    var state = helper.hostsObjToArray(machinesWatcher.getState());
 
+    var units = unitsWatcher.getState();
     for (var m = 0; m < state.length; m++) {
-      state[m] = addUnitsArray(state[m], req.query);
+      state[m] = helper.addUnitsArray(units, state[m], req.query);
     }
 
     res.send(200, state);
@@ -53,7 +25,8 @@ module.exports = function(cfg) {
     var state = machinesWatcher.getState();
 
     req.log.info({'state': state});
-    var host = addUnitsArray(state[req.params.id]);
+    var units = unitsWatcher.getState();
+    var host = helper.addUnitsArray(units, state[req.params.id]);
 
     if (host) {
       res.send(200, host);
