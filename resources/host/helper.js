@@ -3,14 +3,14 @@
 var shouldSendUnit = require('../../lib/check-unit.js');
 
 module.exports = {
-  hostsObjToArray: function (hosts) {
+  hostsObjToArray: function(hosts) {
     var arr = [];
     Object.keys(hosts).forEach(function(key) {
       arr.push(hosts[key]);
     });
     return arr;
   },
-  addUnitsArray: function (units, host, query) {
+  addUnitsArray: function(units, host, query) {
     host.units = [];
     for (var key in units) {
       if (units.hasOwnProperty(key)) {

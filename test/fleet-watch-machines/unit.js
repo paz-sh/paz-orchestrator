@@ -6,8 +6,8 @@ var helper = require('../../resources/host/helper');
 var lab = exports.lab = Lab.script();
 var expect = Lab.expect;
 
-lab.experiment('helper.hostsObjToArray', function () {
-  lab.test('returns an array', function (done) {
+lab.experiment('helper.hostsObjToArray', function() {
+  lab.test('returns an array', function(done) {
     var obj = {
       wow: {
         obj: 1
@@ -21,7 +21,7 @@ lab.experiment('helper.hostsObjToArray', function () {
     done();
   });
 
-  lab.test('results array length is correct', function (done) {
+  lab.test('results array length is correct', function(done) {
     var obj = {
       wow: {
         obj: 1
@@ -35,7 +35,7 @@ lab.experiment('helper.hostsObjToArray', function () {
     done();
   });
 
-  lab.test('results objects are unmolested', function (done) {
+  lab.test('results objects are unmolested', function(done) {
     var obj = {
       wow: {
         obj: 1
@@ -51,6 +51,6 @@ lab.experiment('helper.hostsObjToArray', function () {
   });
 });
 
-lab.experiment('addUnitsArray', function () {
+lab.experiment('addUnitsArray', function() {
   // XXX TODO
 });
