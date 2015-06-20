@@ -7,7 +7,7 @@ var Etcd = require('node-etcd');
 var Watcher = require('../../lib/fleet-watch-machines');
 var fixtures = require('../fixtures/etcd.json');
 
-var host = process.env.DOCKER_IP || 'localhost';
+var host = process.env.DOCKER_IP || ('http://' + 'localhost');
 
 var lab = exports.lab = Lab.script();
 var expect = Lab.expect;
