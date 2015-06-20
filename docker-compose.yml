@@ -6,7 +6,7 @@ orchestrator:
    - PAZ_ORCHESTRATOR_SCHEDULER_URL=http://scheduler_1:9002
    - PAZ_ORCHESTRATOR_ETCD_ENDPOINT=etcd_1:2379
    - PAZ_ORCHESTRATOR_CORS=true
-   - PAZ_DNS_DISABLED=true
+   - PAZ_ORCHESTRATOR_DNS_DISABLED=true
    - DEBUG
   links:
    - svcdir
