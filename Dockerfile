@@ -11,7 +11,6 @@ ADD ./resources /usr/src/app/resources
 ADD ./middleware /usr/src/app/middleware
 ADD ./server.js /usr/src/app/server.js
 
-EXPOSE 9000
-EXPOSE 1337
+EXPOSE 9000 1337
 
 CMD [ "./bin/server" ]
