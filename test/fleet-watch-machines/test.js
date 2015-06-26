@@ -62,7 +62,7 @@ lab.experiment('Fleet Watch Machines', function() {
   });
 
   lab.test('Updating a machine results in the changes being present in the current state', function(done) {
-    machine.PublicIP = '172.17.8.102';
+    machine.PublicIP = '172.17.9.102';
 
     etcd.set('_coreos.com/fleet/machines/' + machine.ID + '/object', JSON.stringify(machine), function(err) {
       if (err) {
