@@ -36,7 +36,7 @@ lab.experiment('Paz Watch Announce', function() {
   });
 
   lab.test('Adding a unit results in that unit being present in the current state', function(done) {
-    etcd.set('paz/services/myservice/1.0.1/1', '172.17.8.101:8080', function(err) {
+    etcd.set('paz/services/myservice/1.0.1/1', '172.17.9.101:8080', function(err) {
       if (err) {
         return done(err);
       }
@@ -46,7 +46,7 @@ lab.experiment('Paz Watch Announce', function() {
 
         expect(state.myservice);
         expect(state.myservice['1.0.1']);
-        expect(state.myservice['1.0.1']['1']).to.equal('172.17.8.101:8080');
+        expect(state.myservice['1.0.1']['1']).to.equal('172.17.9.101:8080');
 
         done();
       }

@@ -91,7 +91,7 @@ $ . paz-envvars.sh
 To ensure the export worked, try:
 ```
 $ echo $ORCHESTRATOR_URL
-172.17.8.101:49164
+172.17.9.101:49164
 ```
 
 If you get any errors, ensure `fig ps` above is working as per the example.
@@ -140,7 +140,7 @@ Now let's try running a service on the platform. We'll use a basic "hello world"
 
 Find out which host and port the service-directory is running on:
 ```
-$ etcdctl --peers=172.17.8.101:2379 get /paz/services/paz-service-directory
+$ etcdctl --peers=172.17.9.101:2379 get /paz/services/paz-service-directory
 172.17.8.103:49153
 ```
 
@@ -152,7 +152,7 @@ $ curl -XPOST -H "Content-Type: application/json" -d @contrived-service-1.json 1
 
 Now get the host and port of the scheduler:
 ```
-$ etcdctl --peers=172.17.8.101:2379 get /paz/services/paz-scheduler
+$ etcdctl --peers=172.17.9.101:2379 get /paz/services/paz-scheduler
 172.17.8.103:49154
 ```
 
@@ -182,8 +182,8 @@ Hit up port 80 on the box containing this new service to see if it works.
 ```
 $ fleetctl list-units
 UNIT                                    MACHINE                   ACTIVE  SUB
-paz-orchestrator-announce.service       7c83517a.../172.17.8.101  active  running
-paz-orchestrator.service                7c83517a.../172.17.8.101  active  running
+paz-orchestrator-announce.service       7c83517a.../172.17.9.101  active  running
+paz-orchestrator.service                7c83517a.../172.17.9.101  active  running
 paz-scheduler-announce.service          83fe3a48.../172.17.8.102  active  running
 paz-scheduler.service                   83fe3a48.../172.17.8.102  active  running
 paz-service-directory-announce.service  5c3e57b1.../172.17.8.103  active  running

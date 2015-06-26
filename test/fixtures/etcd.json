@@ -5,7 +5,7 @@
     "subState":"running",
       "machineState": {
         "ID": "1507de1fe1a24be5be71dcd837f2368e",
-        "PublicIP":"172.17.8.101",
+        "PublicIP":"172.17.9.101",
         "Metadata":{},
         "Version":"0.5.0",
         "TotalResources":{
@@ -17,7 +17,7 @@
   },
   "host": {
     "ID": "eb3691885bdc473f92a5d69de942b814",
-    "PublicIP": "172.17.8.101",
+    "PublicIP": "172.17.9.101",
     "Metadata": {},
     "Version": "0.5.0",
     "TotalResources": {
