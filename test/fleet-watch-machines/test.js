@@ -75,7 +75,7 @@ lab.experiment('Fleet Watch Machines', function() {
 
         expect(state).to.have.property(ID);
         expect(state[ID]).to.have.property('ID');
-        expect(state[ID]).to.have.property('PublicIP').and.to.equal('172.17.8.102');
+        expect(state[ID]).to.have.property('PublicIP').and.to.equal('172.17.9.102');
 
         done();
       }
